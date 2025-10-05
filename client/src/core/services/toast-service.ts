@@ -18,7 +18,7 @@ export class ToastService {
     }
   }
 
-  private createToastElement(message: string, alertClass: string, duration = 500) {
+  private createToastElement(message: string, alertClass: string, duration = 5000) {
     const toastContainer = document.getElementById("toast-container");
     if (!toastContainer) return;
 
@@ -31,9 +31,10 @@ export class ToastService {
     toast.querySelector("button")?.addEventListener("click", () => {
       toastContainer.removeChild(toast);
     });
+    toastContainer.append(toast);
 
     setTimeout(() => {
-      if (toastContainer.contains(toast)) {
+      if (toastContainer.contains((toast))) {
         toastContainer.removeChild(toast);
       }
     }, duration);
