@@ -1,14 +1,15 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../../core/services/account-service';
-import { Router, RouterLinkActive, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ToastService } from '../../core/services/toast-service';
 import { themes } from '../theme';
 import { BusyService } from '../../core/services/busy-service';
+import { HasRole } from '../../shared/directives/has-role';
 
 @Component({
   selector: 'app-nav',
-  imports: [FormsModule, RouterLinkActive, RouterLink],
+  imports: [FormsModule, RouterLink, RouterLinkActive, HasRole],
   templateUrl: './nav.html',
   styleUrl: './nav.css'
 })
@@ -38,8 +39,8 @@ export class Nav implements OnInit {
   login(): void {
     this.accountService.login(this.creds).subscribe({
       next: response => {
-        this.router.navigateByUrl('/members');
-        this.creds = { };
+        this.router.navigateByUrl("/members");
+        this.creds = {};
         this.toast.success("Logged in!")
       },
       error: error => {
@@ -50,6 +51,6 @@ export class Nav implements OnInit {
 
   logout(): void {
     this.accountService.logout();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl("/");
   }
 }
