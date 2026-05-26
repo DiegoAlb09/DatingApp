@@ -66,7 +66,9 @@ public class AccountController(UserManager<AppUser> userManager, ITokenService t
             return ValidationProblem();
         }
 
-        return await user.toDto(tokenService);
+        await userManager.AddToRoleAsync(user, "Member");
+
+        return await user.ToDto(tokenService);
     }
 
     /// <summary>
@@ -89,6 +91,6 @@ public class AccountController(UserManager<AppUser> userManager, ITokenService t
 
         if (!result) return Unauthorized("Invalid username or password");
 
-        return await user.toDto(tokenService);
+        return await user.ToDto(tokenService);
     }
 }
