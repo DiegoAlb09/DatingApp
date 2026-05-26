@@ -66,7 +66,7 @@ public class AccountController(UserManager<AppUser> userManager, ITokenService t
             return ValidationProblem();
         }
 
-        return user.toDto(tokenService);
+        return await user.toDto(tokenService);
     }
 
     /// <summary>
@@ -89,6 +89,6 @@ public class AccountController(UserManager<AppUser> userManager, ITokenService t
 
         if (!result) return Unauthorized("Invalid username or password");
 
-        return user.toDto(tokenService);
+        return await user.toDto(tokenService);
     }
 }
