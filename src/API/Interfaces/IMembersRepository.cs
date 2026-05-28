@@ -1,14 +1,22 @@
+using API.Dtos;
 using API.Entities;
 using API.Helpers;
 
 namespace API.Interfaces;
 
-public interface IMembersRepository
+public interface IMessagesRepository
 {
-    void Update(Member member);
-    Task<bool> SaveAllAsync();
-    Task<PaginationResult<Member>> GetMembersAsync(MemberRequest memberRequest);
-    Task<Member?> GetMemberAsync(string id);
-    Task<IReadOnlyList<Photo>> GetPhotosAsync(string memberId);
-    Task<Member?> GetMemberForUpdateAsync(string id);
+   void Add(Message message);
+   void Delete(Message message);
+   Task<Message?> GetAsync(string messageId);
+   Task<PaginationResult<MessageResponse>> GetForMemberAsync(MessageParams messageRequest);
+   Task<IReadOnlyList<MessageResponse>> GetThreadAsync(string currentMemberId, string recipientId);
+   Task<bool> SaveAllAsync();
+   
+   void AddGroup(Group group);
+   Task RemoveConnectionAsync(string connectionId);
+   Task<Connection?> GetConnectionAsync(string  connectionId);
+   Task<Group?> GetMessageGroupAsync(string groupName);
+   Task<Group?> GetGroupForConnectionAsync(string connectionId);
+
 }
